@@ -1,0 +1,36 @@
+<div style="text-align:center">
+  <h1>{{title}}</h1>
+  <h3>{{currentFocus}}</h3>
+</div>
+<h2>Recipes:</h2>
+  <h6>entered {{month}}/{{day}}/{{year}}</h6>
+  <br>
+<ol>
+  <li *ngFor="let currentRecipe of recipes">
+    <ul>
+      <li>{{currentRecipe.name}}</li>
+      <li>Ingredients:
+      <ul *ngFor="let currentIngredient of currentRecipe.ingredients">
+        <li [class]="priorityColor(currentIngredient)">{{currentIngredient.item}} <button (click)="editIngredient(currentIngredient)">Edit</button></li>
+      </ul>
+    </li>
+      <li>{{currentRecipe.description}}</li>
+    </ul>
+    <br>
+
+
+    <!-- click edit and opition to mark the selected item -->
+    <div *ngIf="selectedIngredient">
+      <label>Edit Item:</label>
+      <br>
+      <input type="radio" [(ngModel)]="selectedIngredient.priority" [value]="1">1 (Need)<br>
+      <input type="radio" [(ngModel)]="selectedIngredient.priority" [value]="2">2 (Have Ingredient)<br>
+      <input type="radio" [(ngModel)]="selectedIngredient.priority" [value]="3">3 (Disreguard)<br>
+
+      <label>Edit Ingredient:</label>
+        <input [(ngModel)]="selectedIngredient.item">
+
+      <button (click)="finishedEditing()">Done</button>
+    </div>
+  </li>
+</ol>
